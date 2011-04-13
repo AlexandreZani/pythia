@@ -16,7 +16,7 @@ def http404(environ, start_response):
   settings = environ['pythia']['app_settings']
   status = "404 Not Found"
   template = environ['pythia']['jinja_env'].get_template("pythia/404.html")
-  data = template.render(url=environ['PATH_INFO'], app_name=settings.app_name)
+  data = template.render(url=environ['PATH_INFO'])
   response_headers = [
       ('Content-type','text/html'),
       ('Content-Length', str(len(data))),

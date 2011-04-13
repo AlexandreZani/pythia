@@ -23,8 +23,10 @@ class Application(object):
     self.chain.append(URLDispatcher(self.settings.view_paths))
     loaders = { 
         "pythia" : PackageLoader('pythia', 'views/templates'),
+        settings.app_pkg : PackageLoader(settings.app_pkg, settings.templates),
         }
     self.jinja_env = Environment(loader=PrefixLoader(loaders))
+    self.jinja_env.globals['app_name'] = settings.app_name
 
   def __call__(self, environ, start_response):
     environ['pythia'] = {
