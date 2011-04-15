@@ -14,6 +14,7 @@
 
 from pythia.url_dispatcher import URLDispatcher
 from pythia.chain import FunctionChain
+from pythia.custom_start_response import CustomStartResponse
 from jinja2 import Environment, PackageLoader, PrefixLoader
 
 class Application(object):
@@ -35,4 +36,4 @@ class Application(object):
         'app_settings' : self.settings,
         }
 
-    return environ['pythia']['chain'](environ, start_response)
+    return environ['pythia']['chain'](environ, CustomStartResponse(start_response))
