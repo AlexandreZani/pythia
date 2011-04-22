@@ -38,3 +38,29 @@ class TestCustomStartResponse(object):
     custom = CustomStartResponse(base, [3, 4])
 
     assert 1 == custom("200 OK", [1, 2])
+
+  def test_set_cookie(self):
+    def check_cookie(status, response_headers):
+      assert "200 OK" == status
+      assert "Set-Cookie" == response_headers[0][0]
+      assert "name=value" == response_headers[0][1]
+      return 1
+
+    custom = CustomStartResponse(check_cookie, [])
+
+    custom.set_cookie("name", "value")
+
+    assert 1 == custom("200 OK", [])
+
+  def test_set_cookie_max_age(self):
+    def check_cookie(status, response_headers):
+      assert "200 OK" == status
+      assert "Set-Cookie" == response_headers[0][0]
+      assert "name=value;max-age=100" == response_headers[0][1]
+      return 1
+
+    custom = CustomStartResponse(check_cookie, [])
+
+    custom.set_cookie("name", "value", max_age=100)
+
+    assert 1 == custom("200 OK", [])

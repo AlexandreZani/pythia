@@ -22,3 +22,14 @@ class CustomStartResponse(object):
 
   def __call__(self, status, response_headers):
     return self.start_response(status, response_headers + self.headers)
+
+  def set_cookie(self, name, value, max_age=None):
+    cookie = name + "=" + value
+
+    if max_age != None:
+      cookie += ";max-age=" + str(max_age)
+
+    self.headers.append(('Set-Cookie', (cookie)))
+
+  def delete_cookie(self, name):
+    self.set_cookie(name, "", 0)
