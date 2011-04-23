@@ -15,6 +15,7 @@
 from pythia.url_dispatcher import URLDispatcher
 from pythia.chain import FunctionChain
 from pythia.custom_start_response import CustomStartResponse
+from pythia.jinja_wrappers import EnvironmentWrapper
 from jinja2 import Environment, PackageLoader, PrefixLoader
 
 class Application(object):
@@ -32,7 +33,7 @@ class Application(object):
   def __call__(self, environ, start_response):
     environ['pythia'] = {
         'chain' : FunctionChain(self.chain),
-        'jinja_env' : self.jinja_env,
+        'jinja_env' : EnvironmentWrapper(self.jinja_env),
         'app_settings' : self.settings,
         }
 
