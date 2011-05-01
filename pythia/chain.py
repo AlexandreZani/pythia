@@ -21,9 +21,9 @@ class FunctionChain(list):
       except IndexError:
         raise StopIteration()
 
-      try:
+      if callable(f):
         return f(*args)
-      except TypeError:
+      else:
         f = None
 
   def push(self, f):
