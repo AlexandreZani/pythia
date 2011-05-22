@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from pythia.url_dispatcher import URLDispatcher
-from pythia.chain import FunctionChain
+from pythia.pipeline import Pipeline
 from pythia.custom_start_response import CustomStartResponse
 from pythia.jinja_wrappers import EnvironmentWrapper
 from jinja2 import Environment, PackageLoader, PrefixLoader
@@ -32,9 +32,10 @@ class Application(object):
 
   def __call__(self, environ, start_response):
     environ['pythia'] = {
-        'chain' : FunctionChain(self.chain),
         'jinja_env' : EnvironmentWrapper(self.jinja_env),
         'app_settings' : self.settings,
         }
 
-    return environ['pythia']['chain'](environ, CustomStartResponse(start_response))
+    pipeline = Pipeline(self.chain)
+
+    return pipeline(environ, CustomStartResponse(start_response))

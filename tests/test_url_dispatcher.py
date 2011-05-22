@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from pythia.url_dispatcher import URLDispatcher
-from pythia.chain import FunctionChain
+from pythia.pipeline import Pipeline
 
 class TestURLDispatcher(object):
   def test_simple_parse(self):
@@ -48,7 +48,7 @@ class TestURLDispatcher(object):
     assert ("good", {"user_id" : '1234'}) == dispatcher._parse_url("/user/1234/")
 
   def test_call(self):
-    def func(environ, start_response):
+    def func(pipeline, environ, start_response):
       assert environ['pythia']['url_params']['user_id'] == '1234'
       return "func"
 
@@ -58,4 +58,4 @@ class TestURLDispatcher(object):
 
     environ = { "PATH_INFO" : "/user/1234" }
 
-    assert "func" == dispatcher(environ, None)
+    assert "func" == dispatcher(Pipeline(), environ, None)

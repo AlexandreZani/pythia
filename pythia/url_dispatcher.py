@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 import re
-from pythia.chain import FunctionChain
+from pythia.pipeline import Pipeline
 from pythia.views import errors
 
 class URLDispatcher(object):
@@ -31,22 +31,19 @@ class URLDispatcher(object):
 
     return (None, None)
 
-  def __call__(self, environ, start_response):
+  def __call__(self, pipeline, environ, start_response):
     url = environ['PATH_INFO']
 
     (view, parameters) = self._parse_url(url)
 
-    if 'pythia' not in environ:
-      environ['pythia'] = { 'chain' : FunctionChain() }
-
-    if 'chain' not in environ['pythia']:
-      environ['pythia']['chain'] = FunctionChain()
-
     if view == None:
-      environ['pythia']['chain'].append(errors.http404)
+      pipeline.append(errors.http404)
     else:
-      environ['pythia']['chain'].append(view)
+      pipeline.append(view)
 
-    environ['pythia']['url_params'] = parameters
+    try:
+      environ['pythia']['url_params'] = parameters
+    except KeyError:
+      environ['pythia'] = {'url_params' : parameters}
 
-    return environ['pythia']['chain'](environ, start_response)
+    return pipeline(environ, start_response)
