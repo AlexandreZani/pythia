@@ -13,10 +13,10 @@
 #   limitations under the License.
 
 class Pipeline(object):
-  def __init__(self, _func_list=None):
-    if _func_list is None:
-      _func_list = []
-    self._func_list = _func_list
+  def __init__(self, func_list=None):
+    if func_list is None:
+      func_list = []
+    self._func_list = func_list[:]
 
   def __call__(self, *args, **kwargs):
     f = None
