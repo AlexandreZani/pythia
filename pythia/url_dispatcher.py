@@ -14,7 +14,7 @@
 
 import re
 from pythia.pipeline import Pipeline
-from pythia.views import errors
+from pythia import errors
 
 class URLDispatcher(object):
   def __init__(self, view_paths):
@@ -37,7 +37,7 @@ class URLDispatcher(object):
     (view, parameters) = self._parse_url(url)
 
     if view == None:
-      pipeline.append(errors.http404)
+      raise errors.Http404
     else:
       pipeline.append(view)
 

@@ -55,7 +55,7 @@ class ErrorView(object):
 
   def __call__(self, environ, start_response):
     status = str(self.num) + " " + self.name
-    data = "<html><title>%s</title><body>%s</body></html>" % (status, status)
+    data = "<html><title>%s</title><body><h1>%s</h1></body></html>" % (status, status)
 
     response_headers = [
         ('Content-type', 'text/html'),
