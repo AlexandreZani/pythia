@@ -22,7 +22,7 @@ class Pipeline(object):
     f = None
     while f == None:
       try:
-        f = self.pop(0)
+        f = self._func_list.pop(0)
       except IndexError:
         raise StopIteration()
 
