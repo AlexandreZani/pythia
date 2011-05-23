@@ -14,6 +14,7 @@
 
 from pythia.url_dispatcher import URLDispatcher
 from pythia.pipeline import Pipeline
+from pythia.errors import ExceptionHandler
 from pythia.custom_start_response import CustomStartResponse
 from pythia.jinja_wrappers import EnvironmentWrapper
 from jinja2 import Environment, PackageLoader, PrefixLoader
@@ -29,6 +30,14 @@ class Application(object):
         }
     self.jinja_env = Environment(loader=PrefixLoader(loaders))
     self.jinja_env.globals['app_name'] = settings.app_name
+
+    try:
+      error_handler = ExceptionHandler(
+          override_handlers=self.settings.error_handlers)
+    except AttributeError:
+      error_handler = ExceptionHandler()
+
+    self.chain.insert(0, error_handler)
 
   def __call__(self, environ, start_response):
     environ['pythia'] = {
