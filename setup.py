@@ -14,13 +14,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from setuptools import setup
+from distutils.core import setup
+
 setup(name = 'pythia',
     version = '0.1',
     author = 'Alexandre Zani',
     author_email = 'Alexandre.Zani@gmail.com',
     description = ('Pythia Web Framework Project'),
     license = 'Apache License Version 2.0',
-    packages = ['pythia', 'tests'],
-    install_requires = ['jinja2']
+    packages = ['pythia'],
+    requires = ['jinja2', 'paste']
     )
