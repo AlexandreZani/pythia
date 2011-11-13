@@ -34,7 +34,7 @@ class TestExceptionHandler(object):
   def test_default404(self):
     pipe = Pipeline([ExceptionHandler(), raise_404])
 
-    expected = "<html><title>404 Not Found</title><body>404 Not Found</body></html>"
+    expected = "<html><title>404 Not Found</title><body><h1>404 Not Found</h1></body></html>"
 
     start_response = StartResponse(expected_status="404 Not Found")
 

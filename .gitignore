@@ -1,2 +1,9 @@
 *.pyc
 *.egg-info/
+bin
+library
+build
+dist
+include
+lib
+local
