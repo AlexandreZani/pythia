@@ -23,5 +23,5 @@ setup(name = 'pythia',
     description = ('Pythia Web Framework Project'),
     license = 'Apache License Version 2.0',
     packages = ['pythia'],
-    requires = ['jinja2', 'paste']
+    requires = ['jinja2']
     )
