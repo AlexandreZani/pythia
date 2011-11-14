@@ -17,7 +17,7 @@
 from setuptools import setup
 
 setup(name = 'pythia',
-    version = '0.1',
+    version = '0.2',
     author = 'Alexandre Zani',
     author_email = 'Alexandre.Zani@gmail.com',
     description = ('Pythia Web Framework Project'),
